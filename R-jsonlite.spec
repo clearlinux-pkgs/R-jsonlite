@@ -4,7 +4,7 @@
 #
 Name     : R-jsonlite
 Version  : 0.9.20
-Release  : 29
+Release  : 30
 URL      : http://cran.r-project.org/src/contrib/jsonlite_0.9.20.tar.gz
 Source0  : http://cran.r-project.org/src/contrib/jsonlite_0.9.20.tar.gz
 Summary  : A Robust, High Performance JSON Parser and Generator for R
@@ -52,6 +52,7 @@ mkdir -p %{buildroot}/usr/lib64/R/library
 R CMD INSTALL --install-tests --build  -l %{buildroot}/usr/lib64/R/library jsonlite
 %{__rm} -rf %{buildroot}%{_datadir}/R/library/R.css
 %check
+export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost
