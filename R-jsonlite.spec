@@ -4,7 +4,7 @@
 #
 Name     : R-jsonlite
 Version  : 1.1
-Release  : 38
+Release  : 39
 URL      : http://cran.r-project.org/src/contrib/jsonlite_1.1.tar.gz
 Source0  : http://cran.r-project.org/src/contrib/jsonlite_1.1.tar.gz
 Summary  : A Robust, High Performance JSON Parser and Generator for R
@@ -38,9 +38,11 @@ lib components for the R-jsonlite package.
 
 %build
 export LANG=C
+export SOURCE_DATE_EPOCH=1484540753
 
 %install
 rm -rf %{buildroot}
+export SOURCE_DATE_EPOCH=1484540753
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -50,7 +52,7 @@ export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export LDFLAGS="$LDFLAGS  -Wl,-z -Wl,relro"
 mkdir -p %{buildroot}/usr/lib64/R/library
-R CMD INSTALL --install-tests --build  -l %{buildroot}/usr/lib64/R/library jsonlite
+R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library jsonlite
 %{__rm} -rf %{buildroot}%{_datadir}/R/library/R.css
 %check
 export LANG=C
