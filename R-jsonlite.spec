@@ -4,7 +4,7 @@
 #
 Name     : R-jsonlite
 Version  : 1.4
-Release  : 45
+Release  : 46
 URL      : http://cran.r-project.org/src/contrib/jsonlite_1.4.tar.gz
 Source0  : http://cran.r-project.org/src/contrib/jsonlite_1.4.tar.gz
 Summary  : A Robust, High Performance JSON Parser and Generator for R
@@ -37,12 +37,15 @@ lib components for the R-jsonlite package.
 %setup -q -c -n jsonlite
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1491759480
+export SOURCE_DATE_EPOCH=1492799202
 
 %install
 rm -rf %{buildroot}
-export SOURCE_DATE_EPOCH=1491759480
+export SOURCE_DATE_EPOCH=1492799202
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -58,7 +61,7 @@ R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
 R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library jsonlite || :
 
@@ -70,6 +73,7 @@ R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/lib
 /usr/lib64/R/library/jsonlite/INDEX
 /usr/lib64/R/library/jsonlite/LICENSE
 /usr/lib64/R/library/jsonlite/Meta/Rd.rds
+/usr/lib64/R/library/jsonlite/Meta/features.rds
 /usr/lib64/R/library/jsonlite/Meta/hsearch.rds
 /usr/lib64/R/library/jsonlite/Meta/links.rds
 /usr/lib64/R/library/jsonlite/Meta/nsInfo.rds
