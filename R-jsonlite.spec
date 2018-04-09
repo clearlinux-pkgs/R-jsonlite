@@ -4,7 +4,7 @@
 #
 Name     : R-jsonlite
 Version  : 1.5
-Release  : 56
+Release  : 57
 URL      : https://cran.r-project.org/src/contrib/jsonlite_1.5.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/jsonlite_1.5.tar.gz
 Summary  : A Robust, High Performance JSON Parser and Generator for R
@@ -16,14 +16,15 @@ BuildRequires : R-testthat
 BuildRequires : clr-R-helpers
 
 %description
-Changes in yajl code by Jeroen:
-- Manually changed the header include paths in some c/h files to avoid cmake dependency.
-- Comment out call to abort() in src/yajl/yajl_parser.c (for CMD check)
-- Manually generated yajl.version.h from yajl.version.h.in (by running cmake)
-- Patch for CMD check warnings on Windows: https://github.com/lloyd/yajl/issues/143
-- Patch for error messages in yajl_tree_parse: https://github.com/lloyd/yajl/issues/144
-- Fix for windows XP: https://rt.cpan.org/Public/Bug/Display.html?id=69113
-- in yajl_tree.c added functions: push_parser_new and push_parser_get
+and the web. Started out as a fork of 'RJSONIO', but has been completely
+    rewritten in recent versions. The package offers flexible, robust, high
+    performance tools for working with JSON in R and is particularly powerful
+    for building pipelines and interacting with a web API. The implementation is
+    based on the mapping described in the vignette (Ooms, 2014). In addition to
+    converting JSON data from/to R objects, 'jsonlite' contains functions to
+    stream, validate, and prettify JSON data. The unit tests included with the
+    package verify that all edge cases are encoded and decoded consistently for
+    use with dynamic data in systems and applications.
 
 %package lib
 Summary: lib components for the R-jsonlite package.
@@ -41,11 +42,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1496329518
+export SOURCE_DATE_EPOCH=1523311050
 
 %install
 rm -rf %{buildroot}
-export SOURCE_DATE_EPOCH=1496329518
+export SOURCE_DATE_EPOCH=1523311050
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -55,7 +56,24 @@ export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export LDFLAGS="$LDFLAGS  -Wl,-z -Wl,relro"
 mkdir -p %{buildroot}/usr/lib64/R/library
+
+mkdir -p ~/.R
+mkdir -p ~/.stash
+echo "CFLAGS = $CFLAGS -march=haswell -ftree-vectorize " > ~/.R/Makevars
+echo "FFLAGS = $FFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
+echo "CXXFLAGS = $CXXFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
 R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library jsonlite
+for i in `find %{buildroot}/usr/lib64/R/ -name "*.so"`; do mv $i $i.avx2 ; mv $i.avx2 ~/.stash/; done
+echo "CFLAGS = $CFLAGS -march=skylake-avx512 -ftree-vectorize " > ~/.R/Makevars
+echo "FFLAGS = $FFLAGS -march=skylake-avx512 -ftree-vectorize " >> ~/.R/Makevars
+echo "CXXFLAGS = $CXXFLAGS -march=skylake-avx512 -ftree-vectorize " >> ~/.R/Makevars
+R CMD INSTALL --preclean --install-tests --no-test-load --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library jsonlite
+for i in `find %{buildroot}/usr/lib64/R/ -name "*.so"`; do mv $i $i.avx512 ; mv $i.avx512 ~/.stash/; done
+echo "CFLAGS = $CFLAGS -ftree-vectorize " > ~/.R/Makevars
+echo "FFLAGS = $FFLAGS -ftree-vectorize " >> ~/.R/Makevars
+echo "CXXFLAGS = $CXXFLAGS -ftree-vectorize " >> ~/.R/Makevars
+R CMD INSTALL --preclean --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library jsonlite
+cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
 %{__rm} -rf %{buildroot}%{_datadir}/R/library/R.css
 %check
 export LANG=C
@@ -63,7 +81,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
-R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library jsonlite || :
+R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library jsonlite|| : 
+cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || : || :
 
 
 %files
@@ -143,3 +162,5 @@ R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/lib
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/R/library/jsonlite/libs/jsonlite.so
+/usr/lib64/R/library/jsonlite/libs/jsonlite.so.avx2
+/usr/lib64/R/library/jsonlite/libs/jsonlite.so.avx512
