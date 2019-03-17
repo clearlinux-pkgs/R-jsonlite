@@ -4,7 +4,7 @@
 #
 Name     : R-jsonlite
 Version  : 1.6
-Release  : 69
+Release  : 70
 URL      : https://cran.r-project.org/src/contrib/jsonlite_1.6.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/jsonlite_1.6.tar.gz
 Summary  : A Robust, High Performance JSON Parser and Generator for R
@@ -41,10 +41,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1548095183
+export SOURCE_DATE_EPOCH=1552831244
 
 %install
-export SOURCE_DATE_EPOCH=1548095183
+export SOURCE_DATE_EPOCH=1552831244
 rm -rf %{buildroot}
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -80,8 +80,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
-R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library jsonlite|| : 
-cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
+R CMD check --no-manual --no-examples --no-codoc  jsonlite || :
 
 
 %files

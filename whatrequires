@@ -1,11 +1,11 @@
 # This file contains recursive sources that require this package
 R-IRkernel
+R-SGP
 R-WikidataR
 R-WikipediR
 R-argparse
 R-csvy
 R-curl
-R-devtools
 R-fitbitScraper
 R-ggvis
 R-gh
