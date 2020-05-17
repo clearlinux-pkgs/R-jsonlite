@@ -4,7 +4,7 @@
 #
 Name     : R-jsonlite
 Version  : 1.6.1
-Release  : 82
+Release  : 83
 URL      : https://cran.r-project.org/src/contrib/jsonlite_1.6.1.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/jsonlite_1.6.1.tar.gz
 Summary  : A Robust, High Performance JSON Parser and Generator for R
@@ -16,14 +16,15 @@ BuildRequires : R-testthat
 BuildRequires : buildreq-R
 
 %description
-Changes in yajl code by Jeroen:
-- Manually changed the header include paths in some c/h files to avoid cmake dependency.
-- Comment out call to abort() in src/yajl/yajl_parser.c (for CMD check)
-- Manually generated yajl.version.h from yajl.version.h.in (by running cmake)
-- Patch for CMD check warnings on Windows: https://github.com/lloyd/yajl/issues/143
-- Patch for error messages in yajl_tree_parse: https://github.com/lloyd/yajl/issues/144
-- Fix for windows XP: https://rt.cpan.org/Public/Bug/Display.html?id=69113
-- in yajl_tree.c added functions: push_parser_new and push_parser_get
+and the web. Started out as a fork of 'RJSONIO', but has been completely
+    rewritten in recent versions. The package offers flexible, robust, high
+    performance tools for working with JSON in R and is particularly powerful
+    for building pipelines and interacting with a web API. The implementation is
+    based on the mapping described in the vignette (Ooms, 2014). In addition to
+    converting JSON data from/to R objects, 'jsonlite' contains functions to
+    stream, validate, and prettify JSON data. The unit tests included with the
+    package verify that all edge cases are encoded and decoded consistently for
+    use with dynamic data in systems and applications.
 
 %package lib
 Summary: lib components for the R-jsonlite package.
@@ -35,21 +36,22 @@ lib components for the R-jsonlite package.
 
 %prep
 %setup -q -c -n jsonlite
+cd %{_builddir}/jsonlite
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1580750391
+export SOURCE_DATE_EPOCH=1589757311
 
 %install
-export SOURCE_DATE_EPOCH=1580750391
+export SOURCE_DATE_EPOCH=1589757311
 rm -rf %{buildroot}
 export LANG=C.UTF-8
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
+export FCFLAGS="$FFLAGS -O3 -flto -fno-semantic-interposition "
+export FFLAGS="$FFLAGS -O3 -flto -fno-semantic-interposition "
 export CXXFLAGS="$CXXFLAGS -O3 -flto -fno-semantic-interposition "
 export AR=gcc-ar
 export RANLIB=gcc-ranlib

@@ -21,6 +21,7 @@ R-googleVis
 R-htmlwidgets
 R-httr
 R-jqr
+R-languageserver
 R-lintr
 R-openssl
 R-plotly
