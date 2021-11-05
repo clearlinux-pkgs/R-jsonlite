@@ -4,7 +4,7 @@
 #
 Name     : R-jsonlite
 Version  : 1.7.2
-Release  : 96
+Release  : 97
 URL      : https://cran.r-project.org/src/contrib/jsonlite_1.7.2.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/jsonlite_1.7.2.tar.gz
 Summary  : A Simple and Robust JSON Parser and Generator for R
