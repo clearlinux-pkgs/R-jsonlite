@@ -27,6 +27,7 @@ R-languageserver
 R-lintr
 R-natserv
 R-openssl
+R-pkgdown
 R-plotly
 R-protolite
 R-pxweb
@@ -49,7 +50,6 @@ R-shiny
 R-shinyjs
 R-solrium
 R-taxize
-R-tensorflow
 R-testthat
 R-tfruns
 R-tidyverse
@@ -61,3 +61,4 @@ R-webutils
 R-whoami
 R-wikitaxa
 R-worrms
+R-xgboost
