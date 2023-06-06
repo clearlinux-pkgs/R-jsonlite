@@ -18,6 +18,7 @@ R-csvy
 R-fitbitScraper
 R-gargle
 R-geojson
+R-gfonts
 R-ggvis
 R-gh
 R-googleVis
@@ -33,6 +34,7 @@ R-pkgdown
 R-plotly
 R-protolite
 R-pxweb
+R-quantmod
 R-rcorpora
 R-reactable
 R-reactlog
@@ -55,6 +57,7 @@ R-taxize
 R-testthat
 R-tfruns
 R-tidyverse
+R-tseries
 R-usethis
 R-visNetwork
 R-webmockr
