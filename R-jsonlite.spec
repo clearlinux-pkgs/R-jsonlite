@@ -4,10 +4,10 @@
 # Using build pattern: R
 #
 Name     : R-jsonlite
-Version  : 1.8.5
-Release  : 114
-URL      : https://cran.r-project.org/src/contrib/jsonlite_1.8.5.tar.gz
-Source0  : https://cran.r-project.org/src/contrib/jsonlite_1.8.5.tar.gz
+Version  : 1.8.7
+Release  : 115
+URL      : https://cran.r-project.org/src/contrib/jsonlite_1.8.7.tar.gz
+Source0  : https://cran.r-project.org/src/contrib/jsonlite_1.8.7.tar.gz
 Summary  : A Simple and Robust JSON Parser and Generator for R
 Group    : Development/Tools
 License  : MIT
@@ -45,10 +45,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1686065156
+export SOURCE_DATE_EPOCH=1688140150
 
 %install
-export SOURCE_DATE_EPOCH=1686065156
+export SOURCE_DATE_EPOCH=1688140150
 rm -rf %{buildroot}
 export LANG=C.UTF-8
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
