@@ -1,6 +1,7 @@
 # This file contains recursive sources that require this package
 R-DT
 R-IRkernel
+R-QuickJSR
 R-SGP
 R-WDI
 R-WikidataQueryServiceR
@@ -26,7 +27,6 @@ R-googledrive
 R-htmlwidgets
 R-httr
 R-languageserver
-R-lintr
 R-memisc
 R-natserv
 R-openssl
