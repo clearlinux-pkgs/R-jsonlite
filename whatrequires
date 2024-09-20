@@ -1,7 +1,7 @@
 # This file contains recursive sources that require this package
 R-DT
-R-IRkernel
 R-QuickJSR
+R-RPushbullet
 R-SGP
 R-WDI
 R-WikidataQueryServiceR
